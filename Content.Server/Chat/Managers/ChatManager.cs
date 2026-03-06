@@ -200,7 +200,9 @@ using Content.Shared.Chat;
 using Content.Shared.Database;
 using Content.Shared.Mind;
 using Content.Shared.Players.RateLimiting;
+using Content.Shared._Nuclear.Chat;
 using Robust.Shared.Configuration;
+using Robust.Shared.GameObjects;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Replays;
@@ -495,6 +497,9 @@ internal sealed partial class ChatManager : IChatManager
             }
         }
 
+        if (!CanSendChat(player, ChatChannel.OOC))
+            return;
+
         Color? colorOverride = null;
         var wrappedMessage = Loc.GetString("chat-manager-send-ooc-wrap-message",
             ("playerName", player.Name),
@@ -630,6 +635,13 @@ internal sealed partial class ChatManager : IChatManager
     #endregion
 
     #region Utility
+
+    private bool CanSendChat(ICommonSession player, ChatChannel channel)
+    {
+        var sendAttempt = new NuclearChatSendAttemptEvent(player, channel);
+        _entityManager.EventBus.RaiseEvent(EventSource.Local, sendAttempt);
+        return !sendAttempt.Cancelled;
+    }
 
     // Goobstation Edit - Coalescing Chat
     public void ChatMessageToOne(ChatChannel channel,
