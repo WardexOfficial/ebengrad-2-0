@@ -126,7 +126,6 @@ namespace Content.IntegrationTests.Tests.Body
                 var coordinates = new EntityCoordinates(grid.Value, center);
                 human = entityManager.SpawnEntity("HumanLungDummy", coordinates);
                 relevantAtmos = entityManager.GetComponent<GridAtmosphereComponent>(grid.Value);
-                startingMoles = 100f; // Hardcoded because GetMapMoles returns 900 here for some reason.
 
 #pragma warning disable NUnit2045
                 Assert.That(entityManager.TryGetComponent(human, out body), Is.True);
@@ -135,6 +134,17 @@ namespace Content.IntegrationTests.Tests.Body
             });
 
             // --- End setup
+
+            // The first exhale can include gas already present in the lungs at spawn time.
+            // Establish the steady-state baseline after one full breathing cycle instead.
+            await PoolManager.WaitUntil(server, () => resp.Status == RespiratorStatus.Exhaling);
+            Assert.That(
+                GetMapMoles(), Is.GreaterThan(0f),
+                "Did not inhale in any gas during warm-up cycle"
+            );
+
+            await PoolManager.WaitUntil(server, () => resp.Status == RespiratorStatus.Inhaling);
+            startingMoles = GetMapMoles();
 
             var inhaleCycles = 100;
             for (var i = 0; i < inhaleCycles; i++)
