@@ -49,7 +49,7 @@ jobs:
             echo "Error fetching PR files from GitHub API."
             exit 1
           fi
-
+          
           if ! echo "$PR_FILES_JSON" | jq -e . > /dev/null; then
              echo "Warning: Received empty or invalid JSON from GitHub API for PR files."
              PR_FILES="" # Set PR_FILES to empty to avoid errors below
@@ -106,8 +106,8 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: Automatically update REUSE headers"
-          commit_user_name: "github-actions[bot]"
-          commit_user_email: "41898282+github-actions[bot]@users.noreply.github.com"
-          commit_author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          commit_user_name: ${{ vars.CHANGELOG_USER }}
+          commit_user_email: ${{ vars.CHANGELOG_EMAIL }}
+          commit_author: ${{ vars.CHANGELOG_USER }} <${{ vars.CHANGELOG_EMAIL }}>
           skip_dirty_check: false
           skip_fetch: true
