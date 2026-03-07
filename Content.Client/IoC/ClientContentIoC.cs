@@ -121,6 +121,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Client._RMC14.LinkAccount;
+using Content.Client._Nuclear.Administration.ScreenCheck;
 using Content.Client.Administration.Managers;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;
@@ -164,6 +165,7 @@ namespace Content.Client.IoC
             collection.Register<IClientPreferencesManager, ClientPreferencesManager>();
             collection.Register<IStylesheetManager, StylesheetManager>();
             collection.Register<IScreenshotHook, ScreenshotHook>();
+            collection.Register<ScreenCheckClientManager>();
             collection.Register<FullscreenHook, FullscreenHook>();
             collection.Register<IClickMapManager, ClickMapManager>();
             collection.Register<IClientAdminManager, ClientAdminManager>();

@@ -164,6 +164,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Server._Goobstation.Antag;
+using Content.Server._Nuclear.Administration.ScreenCheck;
 using Content.Server._Orion.ServerProtection;
 using Content.Server._Orion.ServerProtection.Chat;
 using Content.Server._Orion.ServerProtection.Emoting;
@@ -230,6 +231,7 @@ namespace Content.Server.IoC
             IoCManager.Register<ContentNetworkResourceManager>();
             IoCManager.Register<IAdminNotesManager, AdminNotesManager>();
             IoCManager.Register<GhostKickManager>();
+            IoCManager.Register<ScreenCheckManager>();
             IoCManager.Register<ISharedAdminLogManager, AdminLogManager>();
             IoCManager.Register<IAdminLogManager, AdminLogManager>();
             IoCManager.Register<PlayTimeTrackingManager>();
