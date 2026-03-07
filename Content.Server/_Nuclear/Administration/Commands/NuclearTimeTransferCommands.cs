@@ -18,7 +18,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._Nuclear.Administration.Commands;
 
-[AdminCommand(AdminFlags.Permissions)]
+[AdminCommand(AdminFlags.Moderator)]
 internal sealed class TimeTransferAddGroupCommand : LocalizedCommands
 {
     [Dependency] private readonly IEntityManager _entManager = default!;
