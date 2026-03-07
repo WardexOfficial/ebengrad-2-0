@@ -1,4 +1,3 @@
-      
 # SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2025 Aidenkrz <28298836+Aidenkrz@users.noreply.github.com>
 #
@@ -112,5 +111,3 @@ jobs:
           commit_author: ${{ vars.CHANGELOG_USER }} <${{ vars.CHANGELOG_EMAIL }}>
           skip_dirty_check: false
           skip_fetch: true
-
-    
